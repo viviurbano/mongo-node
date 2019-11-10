@@ -17,9 +17,13 @@
     <table class="table">
       <thead class="thead-dark">
         <tr>
-          <th>Código</th>
+          <th>Código do Paciente</th>
           <th>Nome</th>
-          <th>idade</th>
+          <th>Endereço</th>
+          <th>Data de Nascimento</th>
+          <th>Telefone</th>
+          <th>Sexo</th>
+          <th>Tipo Sanguíneo</th>
           <th></th>
         </tr>
       </thead>
@@ -33,55 +37,75 @@
             <input class="bloqueado" id="nome-<%= item.cod %>" type="text" value="<%= item.nome %>" readonly>
           </td>
           <td>
-            <input class="bloqueado" id="idade-<%= item.cod %>" type="text" value="<%= item.idade %>" readonly>
+            <input class="bloqueado" id="endereco-<%= item.cod %>" type="text" value="<%= item.endereco %>" readonly>
           </td>
           <td>
-              <input name="edit-<%= item.cod %>" type="button" value="Editar" class="btn btn-warning"
-                     onclick="editar(this)">
+            <input class="bloqueado" id="dt_nascto-<%= item.cod %>" type="text" value="<%= item.dt_nascto %>" readonly>
+          </td>
+          <td>
+            <input class="bloqueado" id="telefone-<%= item.cod %>" type="text" value="<%= item.telefone %>" readonly>
+          </td>
+          <td>
+            <input class="bloqueado" id="sexo-<%= item.cod %>" type="text" value="<%= item.sexo %>" readonly>
+          </td>
+          <td>
+            <input class="bloqueado" id="tipo_sanguineo-<%= item.cod %>" type="text" value="<%= item.tipo_sanguineo %>"
+              readonly>
+          </td>
+          <td>
+            <input name="edit-<%= item.cod %>" type="button" value="Editar" class="btn btn-warning"
+              onclick="editar(this)">
 
-            <input type="submit" name="remove-<%= item.cod %>" 
-                class="btn btn-danger" onclick="return remover(this)" value="Remover">
+            <input type="submit" name="remove-<%= item.cod %>" class="btn btn-danger" onclick="return remover(this)"
+              value="Remover">
           </td>
 
         </tr>
 
         <% }) %>
         <tr>
-            <td><input id="new-cod" type="text" name="cod" value=""></td>
-            <td><input id="new-nome" type="text" name="nome" value=""></td>
-            <td><input id="new-idade" type="text" name="idade" value=""></td>
-            <td><input type="submit" value="Salvar" class="btn btn-success"></td>
+          <td><input id="new-cod" type="text" name="cod" value=""></td>
+          <td><input id="new-nome" type="text" name="nome" value=""></td>
+          <td><input id="new-endereco" type="text" name="endereco" value=""></td>
+          <td><input id="new-dt_nascto" type="text" name="dt_nascto" value=""></td>
+          <td><input id="new-telefone" type="text" name="telefone" value=""></td>
+          <td><input id="new-sexo" type="text" name="sexo" value=""></td>
+          <td><input id="new-tipo_sanguineo" type="text" name="tipo_sanguineo" value=""></td>
+          <td><input type="submit" value="Salvar" class="btn btn-success"></td>
         </tr>
       </tbody>
     </table>
   </form>
   <script>
-      function editar(elem){
-          document.getElementById('request_method').value = 'edit';
-          var id = elem.name.substring(5,elem.name.length);
-          
-          document.getElementById('new-cod').value = document.getElementById('cod-'+id).value;
-          document.getElementById('new-nome').value = document.getElementById('nome-'+id).value;
-          document.getElementById('new-idade').value = document.getElementById('idade-'+id).value;
-          
-          document.getElementById('element_id').value = id;
-      }
-      
-      function remover(elem){
-          var resp = confirm("Tem certeza que deseja excluir esse registro?");
-          if(resp){
-              var id = elem.name.substring(7,elem.name.length);
-              document.getElementById('element_id').value = id;
-              document.getElementById('request_method').value = 'delete';
-              //form.submit();
-              return true;
-          }
-          else{
-              return false;
-          }
-      }
-  </script>
+    function editar(elem) {
+      document.getElementById('request_method').value = 'edit';
+      var id = elem.name.substring(5, elem.name.length);
 
+      document.getElementById('new-cod').value = document.getElementById('cod-' + id).value;
+      document.getElementById('new-nome').value = document.getElementById('nome-' + id).value;
+      document.getElementById('new-endereco').value = document.getElementById('endereco-' + id).value;
+      document.getElementById('new-dt_nascto').value = document.getElementById('dt_nascto-' + id).value;
+      document.getElementById('new-telefone').value = document.getElementById('telefone-' + id).value;
+      document.getElementById('new-sexo').value = document.getElementById('sexo-' + id).value;
+      document.getElementById('new-tipo_sanguineo').value = document.getElementById('tipo_sanguineo-' + id).value;
+
+      document.getElementById('element_id').value = id;
+    }
+
+    function remover(elem) {
+      var resp = confirm("Tem certeza que deseja excluir esse registro?");
+      if (resp) {
+        var id = elem.name.substring(7, elem.name.length);
+        document.getElementById('element_id').value = id;
+        document.getElementById('request_method').value = 'delete';
+        //form.submit();
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+  </script>
 
 </body>
 
