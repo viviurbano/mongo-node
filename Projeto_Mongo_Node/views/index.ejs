@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+  <h1><%= title %></h1>
+  <form action="http://localhost:3000/request" method="post">
+    <input id="request_method" type="hidden" name="_request_method" value="post">
+    <input id="element_id" type="hidden" name="_element_id" value="">
+
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>Código</th>
+          <th>Nome</th>
+          <th>idade</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% nomes.forEach(function(item){ %>
+        <tr>
+          <td>
+            <input class="bloqueado" id="cod-<%= item.cod %>" type="text" value="<%= item.cod %>" readonly>
+          </td>
+          <td>
+            <input class="bloqueado" id="nome-<%= item.cod %>" type="text" value="<%= item.nome %>" readonly>
+          </td>
+          <td>
+            <input class="bloqueado" id="idade-<%= item.cod %>" type="text" value="<%= item.idade %>" readonly>
+          </td>
+          <td>
+              <input name="edit-<%= item.cod %>" type="button" value="Editar" class="btn btn-warning"
+                     onclick="editar(this)">
+
+            <input type="submit" name="remove-<%= item.cod %>" 
+                class="btn btn-danger" onclick="return remover(this)" value="Remover">
+          </td>
+
+        </tr>
+
+        <% }) %>
+        <tr>
+            <td><input id="new-cod" type="text" name="cod" value=""></td>
+            <td><input id="new-nome" type="text" name="nome" value=""></td>
+            <td><input id="new-idade" type="text" name="idade" value=""></td>
+            <td><input type="submit" value="Salvar" class="btn btn-success"></td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+  <script>
+      function editar(elem){
+          document.getElementById('request_method').value = 'edit';
+          var id = elem.name.substring(5,elem.name.length);
+          
+          document.getElementById('new-cod').value = document.getElementById('cod-'+id).value;
+          document.getElementById('new-nome').value = document.getElementById('nome-'+id).value;
+          document.getElementById('new-idade').value = document.getElementById('idade-'+id).value;
+          
+          document.getElementById('element_id').value = id;
+      }
+      
+      function remover(elem){
+          var resp = confirm("Tem certeza que deseja excluir esse registro?");
+          if(resp){
+              var id = elem.name.substring(7,elem.name.length);
+              document.getElementById('element_id').value = id;
+              document.getElementById('request_method').value = 'delete';
+              //form.submit();
+              return true;
+          }
+          else{
+              return false;
+          }
+      }
+  </script>
+
+
+</body>
+
+</html>
