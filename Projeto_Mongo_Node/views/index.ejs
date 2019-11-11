@@ -64,11 +64,11 @@
 
         <% }) %>
         <tr>
-          <td><input id="new-cod" type="text" name="cod" value=""></td>
+          <td><input id="new-cod" type="text" name="cod" value="" required="required" ></td>
           <td><input id="new-nome" type="text" name="nome" value=""></td>
           <td><input id="new-endereco" type="text" name="endereco" value=""></td>
           <td><input id="new-dt_nascto" type="text" name="dt_nascto" value=""></td>
-          <td><input id="new-telefone" type="text" name="telefone" value=""></td>
+          <td><input id="new-telefone" type="text" name="telefone" value=""  ></td>
           <td><input id="new-sexo" type="text" name="sexo" value=""></td>
           <td><input id="new-tipo_sanguineo" type="text" name="tipo_sanguineo" value=""></td>
           <td><input type="submit" value="Salvar" class="btn btn-success"></td>
@@ -93,11 +93,13 @@
     }
 
     function remover(elem) {
+      debugger;
       var resp = confirm("Tem certeza que deseja excluir esse registro?");
       if (resp) {
         var id = elem.name.substring(7, elem.name.length);
         document.getElementById('element_id').value = id;
         document.getElementById('request_method').value = 'delete';
+        document.getElementById('new-cod').required = false;
         //form.submit();
         return true;
       }
